@@ -10,20 +10,32 @@ export default class App extends React.Component {
     }
 
     componentDidMount() {
-        axios.get('dog.ceo/api/breeds/image/random')
+        axios.get('https://dog.ceo/api/breeds/image/random/10')
             .then (res => {
-                console.log(res.data)
-                this.setState({dogs: res.data})
+                console.log(res.data.message)
+                this.setState({dogs: res.data.message})
             })
             .catch(err => {
-                alert('Error fetching dogs', err.message)
+                console.log('Error fetching dogs', err.message)
             })
     }
 
+    
+
     render() {
         return (
-            <div className='App container' >
-                hello
+            <div>
+                <h1>Doggy Therapy</h1>
+                <div className='App' >
+                    {this.state.dogs.map((url, idx) => {
+                        console.log(url)
+                        return (
+                            <div className='dog-container' key={idx}>
+                                <img src={url} alt='doggo' />
+                            </div>
+                        )
+                    })}
+                </div>
             </div>
         );
     }
